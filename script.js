@@ -49,31 +49,28 @@ function showPrograms() {
     document.querySelector('.option-button:last-child').classList.add('active');
 }
 
-// Card data
+// Card data (updated to remove icon property)
 const cardsData = [
     {
         title: "Cardiology",
         topics: "37 topics, 800 questions",
         date: "Up to date as of 01/2025",
-        icon: "assets/cards/cardiology-icon.png", // Updated icon path
-        thumbnail: "file-thumbnail.png",
-        pdf: "assets/cardiology-preview.pdf", // Updated preview file
+        thumbnail: "assets/thumbnail.png",
+        pdf: "assets/preview.pdf",
     },
     {
         title: "Neurology",
         topics: "45 topics, 900 questions",
         date: "Up to date as of 01/2025",
-        icon: "assets/cards/neurology-icon.png", // Updated icon path
-        thumbnail: "file-thumbnail.png",
-        pdf: "assets/neurology-preview.pdf", // Updated preview file
+        thumbnail: "assets/thumbnail.png",
+        pdf: "assets/preview.pdf",
     },
     {
         title: "Pulmonology",
         topics: "30 topics, 700 questions",
         date: "Up to date as of 01/2025",
-        icon: "assets/cards/pulmonology-icon.png", // Updated icon path
-        thumbnail: "file-thumbnail.png",
-        pdf: "assets/pulmonology-preview.pdf", // Updated preview file
+        thumbnail: "assets/thumbnail.png",
+        pdf: "assets/preview.pdf",
     },
 ];
 
@@ -81,10 +78,6 @@ const cardsData = [
 function createCard(data) {
     const card = document.createElement("div");
     card.classList.add("carousel-card");
-
-    const background = document.createElement("div");
-    background.classList.add("card-background");
-    background.style.backgroundImage = `url(${data.icon})`;
 
     const content = document.createElement("div");
     content.classList.add("card-content");
@@ -128,7 +121,6 @@ function createCard(data) {
     content.appendChild(date);
     content.appendChild(download);
 
-    card.appendChild(background);
     card.appendChild(content);
 
     return card;

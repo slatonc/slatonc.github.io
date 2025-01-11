@@ -434,20 +434,7 @@ nav {
 
 /* Pixel Art Background */
 .card-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('assets/cards/heart.png');
-    /* Placeholder - Updated pixel art link */
-    background-size: cover;
-    background-position: center;
-    opacity: 0.2;
-    /* Muted effect */
-    z-index: 1;
-    background-color: white;
-    /* Ensure white background */
+    display: none;
 }
 
 .card-content {
@@ -801,6 +788,14 @@ nav {
         width: 100%; /* Make buttons full width */
         padding: 15px; /* Adjust padding */
         border-bottom: 1px solid #ccc; /* Add a separator between buttons */
+        display: flex;
+        align-items: center; /* Ensure icon and text are vertically aligned */
+    }
+
+    .option-button i {
+        margin-right: 10px; /* Add spacing between icon and text */
+        margin-left: 0; /* Remove left margin to align icon to the left */
+        order: -1; /* Place the icon before the text */
     }
 
     .option-button:last-child {
@@ -815,6 +810,7 @@ nav {
     .product-box {
         width: 95%; /* Adjust width to fit within the container */
         margin-bottom: var(--space-md);
+        box-sizing: border-box;
     }
 }
 
@@ -1064,6 +1060,7 @@ nav {
     box-shadow: 0 6px 12px rgba(221, 107, 32, 0.4);
     /* Orange glow effect */
 }
+
 /* Email Capture Form */
 .email-capture-form {
     background-color: var(--primary-500); /* Changed to slightly lighter blue */

@@ -654,7 +654,7 @@ nav {
 }
 
 .option-button:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1
 }
 
 .option-button.active:hover {
@@ -789,6 +789,7 @@ nav {
     font-size: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: auto;
 }
 
 #programs-section .product-box .email-us-button:hover {
@@ -1015,5 +1016,8 @@ footer em {
     }
     #programs-section .product-box {
         width: 95%;
+    }
+    #programs-section .email-us-button {
+        width: 100%;
     }
 }

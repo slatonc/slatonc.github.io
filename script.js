@@ -1,11 +1,14 @@
 // Smooth scrolling for menu links
-document.querySelectorAll('.menu a').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+document.querySelectorAll('.menu a, .modal-cta').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         document.querySelector(targetId).scrollIntoView({
             behavior: 'smooth'
         });
+        if (this.classList.contains('modal-cta')) {
+            document.getElementById('pdfModal').style.display = 'none';
+        }
     });
 });
 
@@ -17,162 +20,116 @@ const transitionPoint = hero.offsetHeight / 3;
 
 window.addEventListener('scroll', () => {
     const emailCaptureFormPosition = emailCaptureForm.getBoundingClientRect().top;
-
-    if (window.scrollY > transitionPoint) {
-        headerCta.classList.add('scrolled');
-    } else {
-        headerCta.classList.remove('scrolled');
-    }
+    headerCta.classList.toggle('scrolled', window.scrollY > transitionPoint);
 
     // Hide/show based on email capture form position
     if (emailCaptureFormPosition < window.innerHeight / 2) {
-        headerCta.style.opacity = '0'; // Hide the button
-        headerCta.style.pointerEvents = 'none'; // Disable clicks
+        headerCta.style.opacity = '0';
+        headerCta.style.pointerEvents = 'none';
     } else {
-        headerCta.style.opacity = '1'; // Show the button
-        headerCta.style.pointerEvents = 'auto'; // Enable clicks
+        headerCta.style.opacity = '1';
+        headerCta.style.pointerEvents = 'auto';
     }
 });
 
 // Toggle Button Functionality for Pricing
-function showDoctors() {
-    document.getElementById('doctors-section').style.display = 'block';
-    document.getElementById('programs-section').style.display = 'none';
-    document.querySelectorAll('.option-button').forEach(button => button.classList.remove('active'));
-    document.querySelector('.option-button:first-child').classList.add('active');
-}
+document.querySelectorAll('.option-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const targetSection = document.getElementById(button.dataset.target);
+        document.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        document.querySelectorAll('#doctors-section, #programs-section').forEach(section => section.style.display = 'none');
+        targetSection.style.display = 'block';
+    });
+});
 
-function showPrograms() {
-    document.getElementById('doctors-section').style.display = 'none';
-    document.getElementById('programs-section').style.display = 'block';
-    document.querySelectorAll('.option-button').forEach(button => button.classList.remove('active'));
-    document.querySelector('.option-button:last-child').classList.add('active');
-}
-
-// Card data (updated to remove icon property)
+// Card data
 const cardsData = [
-    {
-        title: "Cardiology",
-        topics: "37 topics, 800 questions",
-        date: "Up to date as of 01/2025",
-        thumbnail: "assets/thumbnail.png",
-        pdf: "assets/preview.pdf",
-    },
-    {
-        title: "Neurology",
-        topics: "45 topics, 900 questions",
-        date: "Up to date as of 01/2025",
-        thumbnail: "assets/thumbnail.png",
-        pdf: "assets/preview.pdf",
-    },
-    {
-        title: "Pulmonology",
-        topics: "30 topics, 700 questions",
-        date: "Up to date as of 01/2025",
-        thumbnail: "assets/thumbnail.png",
-        pdf: "assets/preview.pdf",
-    },
+    { title: "Cardiology", topics: "37 topics, 800 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
+    { title: "Neurology", topics: "45 topics, 900 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
+    { title: "Pulmonology", topics: "30 topics, 700 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
 ];
 
 // Function to create a card
 function createCard(data) {
     const card = document.createElement("div");
     card.classList.add("carousel-card");
-
-    const content = document.createElement("div");
-    content.classList.add("card-content");
-
-    const title = document.createElement("h3");
-    title.textContent = data.title;
-
-    const topics = document.createElement("p");
-    topics.innerHTML = `<strong>${data.topics}</strong>`;
-
-    const date = document.createElement("p");
-    date.textContent = data.date;
-
-    const download = document.createElement("div");
-    download.classList.add("download-sample");
-
-    const thumbnail = document.createElement("img");
-    thumbnail.src = data.thumbnail;
-    thumbnail.alt = "Sample Topic";
-    thumbnail.classList.add("file-thumbnail");
-
-    // Add click event to open modal
-    thumbnail.addEventListener("click", () => {
+    card.innerHTML = `
+        <div class="card-content">
+            <h3>${data.title}</h3>
+            <p><strong>${data.topics}</strong></p>
+            <p>${data.date}</p>
+            <div class="download-sample">
+                <img src="${data.thumbnail}" alt="Sample Topic" class="file-thumbnail">
+                <span>Preview</span>
+            </div>
+        </div>
+    `;
+    card.querySelector(".file-thumbnail").addEventListener("click", () => {
         const modal = document.getElementById("pdfModal");
-        const pdfViewer = document.getElementById("pdfViewer");
-        const pdfDownload = document.getElementById("pdfDownload");
-
-        pdfViewer.src = data.pdf; // Set PDF source dynamically
-        pdfDownload.href = data.pdf; // Set download link dynamically
-        modal.style.display = "flex"; // Show modal
+        modal.querySelector("#pdfViewer").src = data.pdf;
+        modal.querySelector("#pdfDownload").href = data.pdf;
+        modal.style.display = "flex";
     });
-
-    const downloadText = document.createElement("span");
-    downloadText.textContent = "Download sample topic";
-
-    download.appendChild(thumbnail);
-    download.appendChild(downloadText);
-
-    content.appendChild(title);
-    content.appendChild(topics);
-    content.appendChild(date);
-    content.appendChild(download);
-
-    card.appendChild(content);
-
     return card;
 }
 
-// Function to initialize the carousel
+// Initialize the carousel
 function initCarousel() {
     const carouselTrack = document.querySelector(".carousel-track");
+    const sliderIndicator = document.querySelector(".slider-indicator");
 
-    // Add cards to the track
-    cardsData.forEach((data) => {
+    cardsData.forEach(data => {
         const card = createCard(data);
         carouselTrack.appendChild(card);
+        if (window.innerWidth <= 768) {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            dot.addEventListener("click", () => carouselTrack.scrollLeft = card.offsetLeft);
+            sliderIndicator.appendChild(dot);
+        }
     });
 
-    // Clone cards for seamless looping (desktop)
-    const cards = document.querySelectorAll(".carousel-card");
-    cards.forEach((card) => {
-        const clone = card.cloneNode(true);
-        carouselTrack.appendChild(clone);
-    });
+    if (window.innerWidth > 768) {
+        document.querySelectorAll(".carousel-card").forEach(card => {
+            const clone = card.cloneNode(true);
+            carouselTrack.appendChild(clone);
+        });
+    }
+
+    if (window.innerWidth <= 768) {
+        updateActiveDot();
+        carouselTrack.addEventListener("scroll", updateActiveDot);
+    }
 }
 
-// Initialize the carousel
+function updateActiveDot() {
+    const track = document.querySelector(".carousel-track");
+    const dots = document.querySelectorAll(".slider-indicator .dot");
+    const cardWidth = document.querySelector(".carousel-card").offsetWidth;
+    let activeIndex = Math.round(track.scrollLeft / cardWidth);
+    dots.forEach((dot, index) => dot.classList.toggle("active", index === activeIndex));
+}
+
 initCarousel();
 
 // Modal functionality
-const modal = document.getElementById("pdfModal");
 const modalClose = document.getElementById("modalClose");
-
-// Close modal when clicking the close button
-modalClose.addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-// Close modal when clicking outside the modal content
-window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-        modal.style.display = "none";
+modalClose.addEventListener("click", () => document.getElementById("pdfModal").style.display = "none");
+window.addEventListener("click", event => {
+    if (event.target === document.getElementById("pdfModal")) {
+        document.getElementById("pdfModal").style.display = "none";
     }
 });
 
 // Scroll-triggered animation for "Why Choose" features
 const features = document.querySelectorAll('.why-choose .feature');
-
 window.addEventListener('scroll', () => {
     features.forEach(feature => {
         const featurePosition = feature.getBoundingClientRect().top;
-        const screenPosition = window.innerHeight / 1.3; // Adjust trigger point as needed
-
+        const screenPosition = window.innerHeight / 1.3;
         if (featurePosition < screenPosition) {
-            feature.classList.add('animate'); // Add a class to trigger the animation
+            feature.classList.add('animate');
         }
     });
 });

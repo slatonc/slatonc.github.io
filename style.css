@@ -1,3 +1,4 @@
+
 /* Global Styles */
 
 /* Design System Root Variables */
@@ -240,10 +241,10 @@ nav {
     background-size: cover;
     background-color: var(--primary-100);
     background-position: center;
-    background: linear-gradient(to bottom, var(--primary-100), var(--neutral-100));
     position: relative;
     padding-left: 40px;
     padding-top: 20px;
+    padding-bottom: 20px;
     /* Add padding to the top of hero section */
     margin-top: 0;
 }
@@ -297,6 +298,7 @@ nav {
     font-family: 'Open Sans', sans-serif;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-bottom: 0;
 
 }
 
@@ -312,6 +314,7 @@ nav {
     color: var(--neutral-100);
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
 }
 
 .info-strip .container {
@@ -351,7 +354,8 @@ nav {
 /* Responsive Design */
 @media (max-width: 768px) {
     .info-strip .container {
-        gap: 10px; /* Reduced gap on smaller screens */
+        flex-direction: column;
+        gap: 20px; /* Reduced gap on smaller screens */
     }
 
     .info-strip .info-number {
@@ -370,7 +374,7 @@ nav {
 /* Preview Section Styles */
 .preview {
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px 20px;
     background-color: var(--neutral-100);
     /* Updated background */
     background-image: none;
@@ -568,9 +572,10 @@ nav {
 /* Why Choose Section Styles */
 .why-choose {
     text-align: center;
-    padding: 60px 20px;
+    padding: 40px 20px;
     background-color: var(--primary-100);
     background-image: none;
+    margin-top: var(--space-xs);
 }
 
 .why-choose h2 {
@@ -591,7 +596,7 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    max-width: 85%;
+    max-width: 80%;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -727,6 +732,63 @@ nav {
     .why-choose .feature-right p {
         text-align: center;
     }
+
+    header {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align to the start */
+        padding: 20px; /* Adjust padding */
+    }
+
+    .logo {
+        margin-bottom: 10px; /* Add spacing below the logo */
+    }
+
+    nav {
+        width: 100%; /* Make navigation full width */
+        margin-right: 0; /* Remove right margin */
+    }
+
+    .menu {
+        flex-direction: column; /* Stack menu items vertically */
+        align-items: flex-start; /* Align menu items to the start */
+    }
+
+    .menu li {
+        margin: 5px 0; /* Adjust margin between menu items */
+    }
+
+    .header-cta {
+        display: none; /* Hide the button */
+    }
+
+    .hero-text h1 {
+        font-size: 36px; /* Reduce font size */
+        margin-bottom: 1rem; /* Reduce margin */
+    }
+
+    .hero-text p {
+        font-size: 1rem; /* Reduce font size */
+        margin-bottom: 1.5rem; /* Reduce margin */
+    }
+
+    .carousel-track {
+        animation: none; /* Disable animation */
+    }
+
+    .carousel-card {
+        flex: 0 0 80%; /* Adjust card width (consider making it 100% or less) */
+        margin: 0 auto; /* Center the card */
+    }
+    
+    .product-boxes {
+        flex-direction: column;
+        align-items: center; /* Center the boxes */
+    }
+
+    .product-box {
+        width: 90%; /* Adjust width */
+        margin-bottom: 20px;
+    }
 }
 
 /* Call to Action Section */
@@ -853,7 +915,7 @@ nav {
 
 .product-box p {
     font-size: 18px;
-    margin-bottom: 20px;
+        margin-bottom: 20px;
     color: #555;
 }
 
@@ -976,13 +1038,14 @@ nav {
     /* Orange glow effect */
 }
 
-
 /* Email Capture Form */
 .email-capture-form {
     background-color: var(--primary-500); /* Changed to slightly lighter blue */
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
+    padding-bottom: 30px;
+    margin-top: var(--space-sm);
 }
 
 .email-capture-form .form-text {

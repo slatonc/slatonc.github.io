@@ -12,13 +12,25 @@ document.querySelectorAll('.menu a').forEach(anchor => {
 // Fixed CTA button behavior
 const headerCta = document.querySelector('.header-cta');
 const hero = document.querySelector('.hero');
+const emailCaptureForm = document.querySelector('.email-capture-form'); 
 const transitionPoint = hero.offsetHeight / 3;
 
 window.addEventListener('scroll', () => {
+    const emailCaptureFormPosition = emailCaptureForm.getBoundingClientRect().top;
+
     if (window.scrollY > transitionPoint) {
         headerCta.classList.add('scrolled');
     } else {
         headerCta.classList.remove('scrolled');
+    }
+
+    // Hide/show based on email capture form position
+    if (emailCaptureFormPosition < window.innerHeight /2) {
+        headerCta.style.opacity = '0'; // Hide the button
+        headerCta.style.pointerEvents = 'none'; // Disable clicks
+    } else {
+        headerCta.style.opacity = '1'; // Show the button
+        headerCta.style.pointerEvents = 'auto'; // Enable clicks
     }
 });
 

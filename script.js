@@ -12,7 +12,7 @@ document.querySelectorAll('.menu a').forEach(anchor => {
 // Fixed CTA button behavior
 const headerCta = document.querySelector('.header-cta');
 const hero = document.querySelector('.hero');
-const emailCaptureForm = document.querySelector('.email-capture-form'); 
+const emailCaptureForm = document.querySelector('.email-capture-form');
 const transitionPoint = hero.offsetHeight / 3;
 
 window.addEventListener('scroll', () => {
@@ -25,7 +25,7 @@ window.addEventListener('scroll', () => {
     }
 
     // Hide/show based on email capture form position
-    if (emailCaptureFormPosition < window.innerHeight /2) {
+    if (emailCaptureFormPosition < window.innerHeight / 2) {
         headerCta.style.opacity = '0'; // Hide the button
         headerCta.style.pointerEvents = 'none'; // Disable clicks
     } else {
@@ -144,7 +144,7 @@ function initCarousel() {
         carouselTrack.appendChild(card);
     });
 
-    // Clone cards for seamless looping
+    // Clone cards for seamless looping (desktop)
     const cards = document.querySelectorAll(".carousel-card");
     cards.forEach((card) => {
         const clone = card.cloneNode(true);

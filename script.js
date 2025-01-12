@@ -45,9 +45,9 @@ document.querySelectorAll('.option-button').forEach(button => {
 
 // Card data
 const cardsData = [
-    { title: "Cardiology", topics: "37 topics, 800 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
-    { title: "Neurology", topics: "45 topics, 900 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
-    { title: "Pulmonology", topics: "30 topics, 700 questions", date: "Up to date as of 01/2025", thumbnail: "assets/thumbnail.png", pdf: "assets/preview.pdf" },
+    { title: "Cardiology", topics: "37 topics, 800 questions", date: "Up to date as of 01/2025", pdf: "assets/preview.pdf" },
+    { title: "Neurology", topics: "45 topics, 900 questions", date: "Up to date as of 01/2025", pdf: "assets/preview.pdf" },
+    { title: "Pulmonology", topics: "30 topics, 700 questions", date: "Up to date as of 01/2025", pdf: "assets/preview.pdf" },
 ];
 
 // Function to create a card
@@ -60,17 +60,21 @@ function createCard(data) {
             <p><strong>${data.topics}</strong></p>
             <p>${data.date}</p>
             <div class="download-sample">
-                <img src="${data.thumbnail}" alt="Sample Topic" class="file-thumbnail">
+                <img src="assets/thumbnail.png" alt="Sample Topic" class="file-thumbnail"> 
                 <span>Preview</span>
             </div>
         </div>
     `;
-    card.querySelector(".file-thumbnail").addEventListener("click", () => {
+
+    // Add event listener to the entire "download-sample" div
+    const downloadSample = card.querySelector(".download-sample");
+    downloadSample.addEventListener("click", () => {
         const modal = document.getElementById("pdfModal");
         modal.querySelector("#pdfViewer").src = data.pdf;
         modal.querySelector("#pdfDownload").href = data.pdf;
         modal.style.display = "flex";
     });
+
     return card;
 }
 

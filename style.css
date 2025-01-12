@@ -351,6 +351,7 @@ nav {
 .download-sample span {
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer; /* Add this line to change the cursor */
 }
 
 @keyframes scrollCards {
@@ -654,7 +655,7 @@ nav {
 }
 
 .option-button:hover {
-    background-color: #f1f1
+    background-color: #f1f1fl;
 }
 
 .option-button.active:hover {
